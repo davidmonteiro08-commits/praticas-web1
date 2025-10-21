@@ -1,0 +1,21 @@
+const cars = ["Ford", "Hyundai", "BMW", "Honda"];
+const cars2 = cars.slice(1, 3);
+// console.log(cars2); // Saída: Array [“Hyundai”, “BMW”]
+
+// cars.forEach(valor => console.log(valor));
+
+const precos = [29.90,56.49,124.90,239.90,69.90];
+
+// map() retorna um novo array alterando os elemento do array original
+let precosComDesconto = precos.map(preco => (preco - preco * 0.1));
+precosComDesconto = precosComDesconto.map(preco => Number(preco.toFixed(2)))
+// console.log(precosComDesconto);
+
+// filter() retorna um novo array,filtrando elementos do array original
+// avalia uma condição lógica para determinar quais valores retornar
+const precosFiltrados = precos.filter(preco => preco < 100);
+// console.log(precosFiltrados)
+
+// reduce()
+const total = precos.reduce((soma, preco) => soma += preco, 0);
+console.log("Valor total: R$", total);
