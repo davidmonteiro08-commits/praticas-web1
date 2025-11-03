@@ -1,21 +1,87 @@
-const cars = ["Ford", "Hyundai", "BMW", "Honda"];
-const cars2 = cars.slice(1, 3);
-// console.log(cars2); // Saída: Array [“Hyundai”, “BMW”]
+// Map
 
-// cars.forEach(valor => console.log(valor));
+const produtos = [
+  {
+    id: 1,
+    nome: "Notebook Dell Inspiron 15",
+    categoria: "Informática",
+    preco: 3899.90,
+    estoque: 12,
+    descricao: "Notebook com processador Intel i5, 8GB RAM e SSD de 512GB."
+  },
 
-const precos = [29.90,56.49,124.90,239.90,69.90];
+  {
+    id: 2,
+    nome: "Smartphone Samsung Galaxy S23",
+    categoria: "Celulares",
+    preco: 4999.00,
+    estoque: 8,
+    descricao: "Smartphone com câmera tripla e tela AMOLED de 6.1 polegadas."
+  },
 
-// map() retorna um novo array alterando os elemento do array original
-let precosComDesconto = precos.map(preco => (preco - preco * 0.1));
-precosComDesconto = precosComDesconto.map(preco => Number(preco.toFixed(2)))
-// console.log(precosComDesconto);
+  {
+    id: 3,
+    nome: "Fone de Ouvido Bluetooth JBL Tune 510BT",
+    categoria: "Áudio",
+    preco: 249.90,
+    estoque: 25,
+    descricao: "Fone leve, dobrável e com bateria de até 40 horas."
+  },
 
-// filter() retorna um novo array,filtrando elementos do array original
-// avalia uma condição lógica para determinar quais valores retornar
-const precosFiltrados = precos.filter(preco => preco < 100);
-// console.log(precosFiltrados)
+  {
+    id: 4,
+    nome: "Monitor LG Ultragear 27''",
+    categoria: "Periféricos",
+    preco: 1599.00,
+    estoque: 6,
+    descricao: "Monitor gamer 144Hz com tecnologia IPS e resolução Full HD."
+  },
 
-// reduce()
-const total = precos.reduce((soma, preco) => soma += preco, 0);
-console.log("Valor total: R$", total);
+  {
+    id: 5,
+    nome: "Teclado Mecânico Redragon Kumara",
+    categoria: "Periféricos",
+    preco: 289.90,
+    estoque: 15,
+    descricao: "Teclado mecânico com switches Outemu Blue e iluminação RGB."
+  }
+];
+
+const aplicarDesconto = (produto) => {
+    // spread operator - espalhar os atributos do objeto
+    // cópia do array original
+    const newProduto = {...produto};
+    newProduto.preco = newProduto.preco * 0.9;
+    return newProduto;
+}
+
+const produtosComDesconto = produtos.map(aplicarDesconto);
+//console.table(produtos)
+//console.table(produtosComDesconto);
+
+// Filter
+
+const filtrarPorEstoque = (produto) => {
+    return produto.estoque < 10;
+}
+
+const estoqueBaixo = produtos.filter(filtrarPorEstoque);
+//console.table(estoqueBaixo);
+
+// Reduce
+
+const valorTotal = produtos.reduce((acc, produto) => acc + produto.preco, 0);
+//console.log(`Valor total dos produtos: R$ ${valorTotal.toFixed(2)}`)
+
+//Composição de funções
+const valor = produtos.filter(produto => produto.estoque < 10)
+.map(aplicarDesconto)
+.reduce((acc, produto) => acc + produto.preco, 0);
+
+console.log(`Valor total dos produtos com menos de 10 unidades no estoque com desconto de 10%: ${valor.toFixed(2)}`);
+
+const valor2 = produtos.filter(produto => produto.estoque < 10)
+.map(aplicarDesconto)
+.reduce((acc, produto) => acc * produto.estoque, 1);
+
+console.log(valor2);
